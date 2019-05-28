@@ -1,8 +1,13 @@
 <!DOCTYPE html>
 <html>
+<meta charset="UTF-8">
 <body>
-
-<div style="text-align:center">
+<h1>Tesla Cam Player</h1>
+<h1>Tesla Cam 播放器</h1>
+<div id="mainBody" style="text-align:center">
+  <!-- <div class="input-file"><input id="input-file" type="file" accept="video/mp4" multiple=""></div> -->
+  <input type="file" id="files" name="files[]" multiple />
+  <output id="list"></output>
   <button onclick="playPause()">Play/Pause</button>
   <br><br>
   <video id="video1" width="420">
@@ -13,14 +18,25 @@
 </div>
 
 <script>
-var myVideo = document.getElementById("video1");
-
 function playPause() {
+  var myVideo = document.getElementById("video1");
   if (myVideo.paused)
     myVideo.play();
   else
     myVideo.pause();
 }
+function handleFileSelect(evt) {
+    var files = evt.target.files; // FileList object
+    // files is a FileList of File objects. List some properties.
+    var output = [];
+    for (var i = 0, f; f = files[i]; i++) {
+      output.push('<li><strong>', escape(f.name), '</strong> (', f.type || 'n/a', ') - ',
+                  f.size, ' bytes, last modified: ',
+                  f.lastModifiedDate.toLocaleDateString(), '</li>');
+    }
+    document.getElementById('list').innerHTML = '<ul>' + output.join('') + '</ul>';
+  }
+  document.getElementById('files').addEventListener('change', handleFileSelect, false);
 </script>
 
 </body>
