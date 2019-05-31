@@ -6,9 +6,10 @@
 <!-- <h1>Tesla Cam 播放器</h1> -->
 
 <div id="mainBody" style="text-align:center">
-  <input type="file" id="filepicker" accept="video/mp4" name="fileList" webkitdirectory multiple />
+  <!-- <input type="file" id="filepicker" accept="video/mp4" name="fileList" webkitdirectory multiple /> -->
+  <input type="file" id="filepicker" accept="video/mp4" webkitdirectory multiple/>
   <ul id="listing"></ul>
-  <select id="mySelect"></select>
+  <select id="vedioSelect" onchange="listVedio()"></select>
   <!-- <input type="file" id="files" name="files[]" /> -->
   <!-- <output id="list"></output> -->
   <button onclick="playPause()">Play/Pause</button>
@@ -18,5 +19,6 @@
   <video id="video3" width="420"></video>
 </div>
 <script src="Main.js">  </script>
+<p id="demo"></p>
 </body>
 </html>
