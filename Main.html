@@ -3,41 +3,20 @@
 <meta charset="UTF-8">
 <body>
 <h1>Tesla Cam Player</h1>
-<h1>Tesla Cam 播放器</h1>
+<!-- <h1>Tesla Cam 播放器</h1> -->
+
 <div id="mainBody" style="text-align:center">
-  <!-- <div class="input-file"><input id="input-file" type="file" accept="video/mp4" multiple=""></div> -->
-  <input type="file" id="files" name="files[]" />
-  <output id="list"></output>
+  <input type="file" id="filepicker" accept="video/mp4" name="fileList" webkitdirectory multiple />
+  <ul id="listing"></ul>
+  <select id="mySelect"></select>
+  <!-- <input type="file" id="files" name="files[]" /> -->
+  <!-- <output id="list"></output> -->
   <button onclick="playPause()">Play/Pause</button>
   <br><br>
-  <video id="video1" width="420">
-    <source src="C:\Users\heyjoy\Desktop\2019-05-10_20-38-29\2019-05-10_20-29-front.mp4" type="video/mp4">
-    <source src="C:\Users\heyjoy\Desktop\2019-05-10_20-38-29\2019-05-10_20-29-front.ogg" type="video/ogg">
-    Your browser does not support HTML5 video.
-  </video>
+  <video id="video1" width="420"></video>
+  <video id="video2" width="420"></video>
+  <video id="video3" width="420"></video>
 </div>
-
-<script>
-var filename;
-var myVideos=document.getElementById("video1");
-function playPause() {
-  if (myVideo.paused)
-    myVideo.play();
-  else
-    myVideo.pause();
-}
-function handleFileSelect(evt) {
-    var files = evt.target.files; // FileList object
-    var output = [];
-    var filename = files[0].name; // update filename
-    // listVedio(filename);
-
-    // var date= filename.split("-");
-    // document.write(date)
-    myVideos.src=files[0];
-    myVideos.load();
-  }
-</script>
-
+<script src="Main.js">  </script>
 </body>
 </html>
