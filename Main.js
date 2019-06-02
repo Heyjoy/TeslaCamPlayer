@@ -15,21 +15,23 @@ function playPause() {
 document.getElementById("filepicker").addEventListener("change", function(event) {
   files = event.target.files;
   VedioSelectBox.innerHTML = ""; // clean up the list
-  const obj_url = window.URL.createObjectURL(files[2]);
+
   for (let i=0; i<files.length; i++) {
     let item_opt = document.createElement("OPTION");
-    item_opt.innerHTML = files[i].name;
+    item_opt.innerHTML = window.URL.createObjectURL(files[i]);
     VedioSelectBox.appendChild(item_opt);
   };
-  video1.src = obj_url;
-  video1.load()
+
 }, false);
 
 function listVedio(){
+  let item_Index = VedioSelectBox.selectedIndex;
   let item_li = document.createElement("li");
-  item_li.innerHTML = VedioSelectBox.value;
-  document.getElementById("demo").innerHTML = "You selected: ";
+  item_li.innerHTML = VedioSelectBox.selectedIndex;
   output.appendChild(item_li);
+  const obj_url = window.URL.createObjectURL(files[item_Index]);
+  video1.src = obj_url;
+  video1.load()
 }
 
     // listVedio(filename);
