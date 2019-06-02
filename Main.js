@@ -1,9 +1,11 @@
-
+// HTML元素抓手声明
 const videoes = new Array(document.getElementById('video1'),document.getElementById('video2'),document.getElementById('video3'))
 const VedioSelectBox = document.getElementById("vedioSelect");
-const output = document.getElementById("listing");
+const vedioDate = document.getElementById("vedioDate");
+// 变量声明
 var files;
 var playPauseFlag = false;
+var playRate = 1; // normal speed
 
 document.getElementById("filepicker").addEventListener("change", function(event) {
   files = event.target.files;
@@ -18,36 +20,20 @@ document.getElementById("filepicker").addEventListener("change", function(event)
 
 function listVedio(){
   let item_Index = VedioSelectBox.selectedIndex;
-  let item_li = document.createElement("li");
-
-  // item_li.innerHTML = checkName;
-  for(x in files){
-    if (files[x].name == VedioSelectBox.value){
-      item_li.innerHTML = "x";
-    }
-    else {
-      item_li.innerHTML = "found nothing";
-    }
-  }
   let vedio_Index = Math.floor((item_Index+1)/3);
-  let vedio_IdBase = vedio_Index*3;
-  item_li.innerHTML = "[No."+VedioSelectBox.selectedIndex+"]"+VedioSelectBox.value+"  VedioIdex:"+vedio_IdBase;
-  output.appendChild(item_li);
-
+  let vedio_content;
   for(var i=0;i<3;i++){
     let file = files[vedio_Index*3+i];
     let obj_url =  window.URL.createObjectURL(file);
-    alert(file.name);
+    let pattern = /\d{4}(\-)\d{1,2}\1\d{1,2}\_\d{1,2}\1\d{1,2}/;
+    // alert(file.name.match(pattern));
+    // vedioDate.innerHTML = file.name.match(pattern);
+    vedioDate.innerHTML = file.name.match(pattern)[0];
     videoes[i].src =obj_url;
     videoes[i].load()
   }
-
 }
 //display date
-function displayVedioContent{
-
-
-}
 // add vedio control
 function playPause() {
   if (playPauseFlag!=true){
@@ -63,3 +49,17 @@ function playPause() {
     playPauseFlag = false;
   }
 }
+
+// function playRateUp() {
+//     playRate = playRate+0.5;
+//     for (var i=0;i<3;i++){
+//       videoes[i].playbackRate(playRate);
+//     }
+// }
+//
+// function playRateDown() {
+//     playRate = playRate-0.5;
+//     for (var i=0;i<3;i++){
+//       videoes[i].playbackRate(playRate);
+//     }
+// }

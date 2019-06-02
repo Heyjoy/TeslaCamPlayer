@@ -8,16 +8,21 @@
 <div id="mainBody" style="text-align:center">
   <!-- <input type="file" id="filepicker" accept="video/mp4" name="fileList" webkitdirectory multiple /> -->
   <input type="file" id="filepicker" accept="video/mp4" webkitdirectory multiple/>
-  <ul id="listing"></ul>
+  <!-- <ul id="listing"></ul> -->
   <select id="vedioSelect" onchange="listVedio()"></select>
   <!-- <input type="file" id="files" name="files[]" /> -->
   <!-- <output id="list"></output> -->
   <button onclick="playPause()">Play/Pause</button>
+  <!-- <button onclick="playRateDown()"><<</button>
+  <button onclick="playRateUp()">>></button> -->
   <br><br>
+  <h2 id="vedioDate" class="vedioDate"></h2>
   <video id="video1" width="420"></video>
   <video id="video2" width="420"></video>
   <video id="video3" width="420"></video>
+<div id="TeslaCamVedioes"></div>
+
 </div>
-<script src="Main.js">  </script>
+<script src="Main.js"></script>
 </body>
 </html>
