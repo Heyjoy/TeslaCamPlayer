@@ -2,10 +2,10 @@
 const videoes = new Array(document.getElementById('video1'),document.getElementById('video2'),document.getElementById('video3'))
 const VedioSelectBox = document.getElementById("vedioSelect");
 const vedioDate = document.getElementById("vedioDate");
+const playSpeed = document.getElementById("playSpeed");
 // 变量声明
 var files;
 var playPauseFlag = false;
-var playRate = 1; // normal speed
 
 document.getElementById("filepicker").addEventListener("change", function(event) {
   files = event.target.files;
@@ -49,17 +49,24 @@ function playPause() {
     playPauseFlag = false;
   }
 }
-
-// function playRateUp() {
-//     playRate = playRate+0.5;
-//     for (var i=0;i<3;i++){
-//       videoes[i].playbackRate(playRate);
-//     }
-// }
-//
-// function playRateDown() {
-//     playRate = playRate-0.5;
-//     for (var i=0;i<3;i++){
-//       videoes[i].playbackRate(playRate);
-//     }
-// }
+function playRateSlow() {
+    // playRate = playRate+0.5;
+    for (var i=0;i<3;i++){
+      videoes[i].playbackRate=0.5;
+    }
+    playSpeed.innerHTML = videoes[0].playbackRate;
+}
+function playRateNormal() {
+    // playRate = playRate+0.5;
+    for (var i=0;i<3;i++){
+      videoes[i].playbackRate=1;
+    }
+    playSpeed.innerHTML = videoes[0].playbackRate;
+}
+function playRateMax() {
+    // playRate = playRate+0.5;
+    for (var i=0;i<3;i++){
+      videoes[i].playbackRate=8;
+    }
+    playSpeed.innerHTML = videoes[0].playbackRate;
+}
