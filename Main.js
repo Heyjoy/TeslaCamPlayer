@@ -6,6 +6,7 @@ const playSpeed = document.getElementById("playSpeed");
 // 变量声明
 var files;
 var playPauseFlag = false;
+var item_Index;
 
 document.getElementById("filepicker").addEventListener("change", function(event) {
   files = event.target.files;
@@ -19,22 +20,23 @@ document.getElementById("filepicker").addEventListener("change", function(event)
 }, false);
 
 function listVedio(){
-  let item_Index = VedioSelectBox.selectedIndex;
+  item_Index = VedioSelectBox.selectedIndex;
+  loadVedioById(item_Index);
+}
+//display date
+// add vedio control
+function loadVedioById(item_Index){
   let vedio_Index = Math.floor((item_Index+1)/3);
   let vedio_content;
   for(var i=0;i<3;i++){
     let file = files[vedio_Index*3+i];
     let obj_url =  window.URL.createObjectURL(file);
     let pattern = /\d{4}(\-)\d{1,2}\1\d{1,2}\_\d{1,2}\1\d{1,2}/;
-    // alert(file.name.match(pattern));
-    // vedioDate.innerHTML = file.name.match(pattern);
     vedioDate.innerHTML = file.name.match(pattern)[0];
     videoes[i].src =obj_url;
     videoes[i].load()
   }
 }
-//display date
-// add vedio control
 function playPause() {
   if (playPauseFlag!=true){
     for (var i=0;i<3;i++){
@@ -48,6 +50,18 @@ function playPause() {
     }
     playPauseFlag = false;
   }
+}
+function playNext()
+{
+  item_Index=item_Index+3
+  loadVedioById(item_Index);
+}
+function playPrev()
+{
+  if( item_Index>=3){
+    item_Index=item_Index-3
+  }
+  loadVedioById(item_Index);
 }
 function playRateSlow() {
     // playRate = playRate+0.5;
