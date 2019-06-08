@@ -28,7 +28,8 @@ function setSelectBox(){
   if((files.length)%3 == 0){
     for (let i=0; i<(files.length)/3; i++) {
       let item_opt = document.createElement("OPTION");
-      item_opt.innerHTML = files[i*3].name.split("-front.mp4")[0];
+      // item_opt.innerHTML = files[i*3].name.split("-front.mp4")[0];
+      item_opt.innerHTML = parseNameToDate(files[i*3].name);
       VedioSelectBox.appendChild(item_opt);
     }
   }
@@ -44,15 +45,8 @@ function listVedio(){
 //display date
 // add vedio control
 function loadVedioById(item_Index){
-  // let pattern = /\d{4}(\-)\d{1,2}\1\d{1,2}\_\d{1,2}\1\d{1,2}/;
-  //vedioDate.innerHTML = file.name.match(pattern)[0];
-  let nameArry =files[item_Index*3].name.split("_")
-  let dateArry =nameArry[0].split("-")
-  let hourArry =nameArry[1].split("-")
-  vedioDate.innerHTML = dateArry[0]+"年"+dateArry[1]+"月"+dateArry[2]+"日"
-                        +hourArry[0]+"时"+hourArry[1]+"分";
-  // alert(nameArry);
 
+  vedioDate.innerHTML = parseNameToDate(files[item_Index*3].name);
   // load the three vedio
   for(var i=0;i<3;i++){
     let file = files[item_Index*3+i];
@@ -62,7 +56,13 @@ function loadVedioById(item_Index){
   }
 }
 
-
+function parseNameToDate(filename){
+  let nameArry = filename.split("_");
+  let dateArry = nameArry[0].split("-");
+  let hourArry = nameArry[1].split("-");
+  return dateArry[0]+"年"+dateArry[1]+"月"+dateArry[2]+"日"
+                        +hourArry[0]+"时"+hourArry[1]+"分";
+}
 
 //button functions
 function playPause() {
@@ -78,11 +78,13 @@ function playPause() {
     }
     playPauseFlag = false;
   }
+  showPlaySpeed();
 }
 function playNext()
 {
   item_Index=item_Index+3
   loadVedioById(item_Index);
+  showPlaySpeed();
 }
 function playPrev()
 {
@@ -90,6 +92,7 @@ function playPrev()
     item_Index=item_Index-3
   }
   loadVedioById(item_Index);
+  showPlaySpeed();
 }
 function playRateSlow() {
     // playRate = playRate+0.5;
