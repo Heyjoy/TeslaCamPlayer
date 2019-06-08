@@ -9,6 +9,7 @@ var playPauseFlag = false;
 var item_Index;
 var selectItemIndex;
 
+// file Load event
 document.getElementById("filepicker").addEventListener("change", function(event) {
 //init
   files = event.target.files;
@@ -16,6 +17,7 @@ document.getElementById("filepicker").addEventListener("change", function(event)
 //setSelectBox
   setSelectBox();
   loadVedioById(item_Index)
+  showPlaySpeed();
 }, false);
 
 function setSelectBox(){
@@ -23,30 +25,46 @@ function setSelectBox(){
   VedioSelectBox.innerHTML = ""; // clean up the list
   selectItemIndex = 0;
   //update the content of selectBox
-  for (let i=0; i<files.length; i++) {
-    let item_opt = document.createElement("OPTION");
-    item_opt.innerHTML = files[i].name;
-    VedioSelectBox.appendChild(item_opt);
-  };
+  if((files.length)%3 == 0){
+    for (let i=0; i<(files.length)/3; i++) {
+      let item_opt = document.createElement("OPTION");
+      item_opt.innerHTML = files[i*3].name.split("-front.mp4")[0];
+      VedioSelectBox.appendChild(item_opt);
+    }
+  }
+  else {
+    alert("文件数量出错")
+  }
 }
 function listVedio(){
-  item_Index = VedioSelectBox.selectedIndex;
-  loadVedioById(item_Index);
+  selectItemIndex = VedioSelectBox.selectedIndex;
+  // let vedio_Index = Math.floor((selectItemIndex+1)/3);
+  loadVedioById(selectItemIndex);
 }
 //display date
 // add vedio control
 function loadVedioById(item_Index){
-  let vedio_Index = Math.floor((item_Index+1)/3);
-  let vedio_content;
+  // let pattern = /\d{4}(\-)\d{1,2}\1\d{1,2}\_\d{1,2}\1\d{1,2}/;
+  //vedioDate.innerHTML = file.name.match(pattern)[0];
+  let nameArry =files[item_Index*3].name.split("_")
+  let dateArry =nameArry[0].split("-")
+  let hourArry =nameArry[1].split("-")
+  vedioDate.innerHTML = dateArry[0]+"年"+dateArry[1]+"月"+dateArry[2]+"日"
+                        +hourArry[0]+"时"+hourArry[1]+"分";
+  // alert(nameArry);
+
+  // load the three vedio
   for(var i=0;i<3;i++){
-    let file = files[vedio_Index*3+i];
+    let file = files[item_Index*3+i];
     let obj_url =  window.URL.createObjectURL(file);
-    let pattern = /\d{4}(\-)\d{1,2}\1\d{1,2}\_\d{1,2}\1\d{1,2}/;
-    vedioDate.innerHTML = file.name.match(pattern)[0];
     videoes[i].src =obj_url;
     videoes[i].load()
   }
 }
+
+
+
+//button functions
 function playPause() {
   if (playPauseFlag!=true){
     for (var i=0;i<3;i++){
@@ -78,19 +96,22 @@ function playRateSlow() {
     for (var i=0;i<3;i++){
       videoes[i].playbackRate=0.5;
     }
-    playSpeed.innerHTML = videoes[0].playbackRate;
+    showPlaySpeed();
 }
 function playRateNormal() {
     // playRate = playRate+0.5;
     for (var i=0;i<3;i++){
       videoes[i].playbackRate=1;
     }
-    playSpeed.innerHTML = videoes[0].playbackRate;
+    showPlaySpeed();
 }
 function playRateMax() {
     // playRate = playRate+0.5;
     for (var i=0;i<3;i++){
       videoes[i].playbackRate=8;
     }
-    playSpeed.innerHTML = videoes[0].playbackRate;
+    showPlaySpeed();
+}
+function showPlaySpeed(){
+  playSpeed.innerHTML =  "当前播放速度"+videoes[0].playbackRate+"x";
 }
