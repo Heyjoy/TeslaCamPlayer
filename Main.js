@@ -7,18 +7,28 @@ const playSpeed = document.getElementById("playSpeed");
 var files;
 var playPauseFlag = false;
 var item_Index;
+var selectItemIndex;
 
 document.getElementById("filepicker").addEventListener("change", function(event) {
+//init
   files = event.target.files;
+  item_Index = 0;
+//setSelectBox
+  setSelectBox();
+  loadVedioById(item_Index)
+}, false);
+
+function setSelectBox(){
+  //init
   VedioSelectBox.innerHTML = ""; // clean up the list
+  selectItemIndex = 0;
+  //update the content of selectBox
   for (let i=0; i<files.length; i++) {
     let item_opt = document.createElement("OPTION");
     item_opt.innerHTML = files[i].name;
     VedioSelectBox.appendChild(item_opt);
   };
-
-}, false);
-
+}
 function listVedio(){
   item_Index = VedioSelectBox.selectedIndex;
   loadVedioById(item_Index);
