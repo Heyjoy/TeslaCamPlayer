@@ -16,7 +16,7 @@ document.getElementById("filepicker").addEventListener("change", function(event)
   item_Index = 0;
 //setSelectBox
   setSelectBox();
-  loadVedioById(item_Index)
+//  loadVedioById(item_Index)
   showPlaySpeed();
 }, false);
 
